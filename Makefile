@@ -35,3 +35,17 @@ download-ace-erg:
 unpack-ace-erg: download-ace-erg
 	tar -xvf ace/ace-0.9.28-x86-64.tar.gz -C ace/
 	bunzip2 ace/erg-1214-x86-64-0.9.28.dat.bz2
+
+# the AMR targets need to be made on gypsum
+# you will also need NeuralAmr:
+# https://github.com/sinantie/NeuralAmr
+NEURAL_AMR_ROOT=/home/jwei/NeuralAmr
+
+parse:
+	sbatch --export=INPUT=data/trg-en/reference,MODULEFILES=slurm/modulefiles,NEURAL_AMR_ROOT=$(NEURAL_AMR_ROOT) slurm/parse.sh
+	sbatch --export=INPUT=data/trg-en/mt-system,MODULEFILES=slurm/modulefiles,NEURAL_AMR_ROOT=$(NEURAL_AMR_ROOT) slurm/parse.sh
+
+to-full: parse data/trg-en/reference.amr data/trg-en/mt-system.amr
+	mkdir -p data/trg-en/amr
+	mv data/trg-en/reference.* data/trg-en/amr
+	mv data/trg-en/mt-system.* data/trg-en/amr
