@@ -1,3 +1,6 @@
 [submodule "smatch"]
 	path = smatch
 	url = git@github.com:johntzwei/smatch.git
+[submodule "jamr"]
+	path = jamr
+	url = https://github.com/jflanigan/jamr.git
