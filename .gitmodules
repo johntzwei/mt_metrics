@@ -1,0 +1,3 @@
+[submodule "smatch"]
+	path = smatch
+	url = git@github.com:johntzwei/smatch.git
